@@ -1,0 +1,262 @@
+/* Caseificio La Perla Bianca · Precotto — «Fatta stanotte.»
+   Il latte di bufala arriva alle due di notte e alle 9:30 la mozzarella è sul banco. Il nome è la
+   loro metafora (la mozzarella che luccica come una perla) e il sito è un filo di perle: ogni
+   latticino è una perla che si forma. Palette dal grigio dell'insegna e dal bianco del prodotto. */
+
+/* ── reset tecnico (PLUMBING) ── */
+[hidden]{display:none !important}
+img{max-width:100%;height:auto}
+*,*::before,*::after{box-sizing:border-box}
+
+:root{
+  --notte:#3A3F44; --notte-scura:#2B2F33; --notte-chiara:#4B5157;
+  --perla:#FBFAF6; --latte:#F1EEE8; --siero:#E3DFD6; --bianco:#FFFFFF;
+  --rosso:#C8102E; --verde:#1E7A46; --paglia:#C9A24A;
+  --grafite:#1F2225; --grigio:#6B6E72; --grigio-chiaro:#B8BBBF;
+  --f-tit:'Bellefair',Georgia,'Times New Roman',serif;
+  --f-txt:'Reddit Sans',system-ui,-apple-system,'Segoe UI',sans-serif;
+  --lato:clamp(1.2rem,6vw,6rem);
+  --testata:68px;
+}
+html{scroll-behavior:smooth;scroll-padding-top:calc(var(--testata) + 8px)}
+body{margin:0;font-family:var(--f-txt);font-size:1.06rem;line-height:1.65;color:var(--grafite);background:var(--perla);-webkit-font-smoothing:antialiased;overflow-x:hidden}
+img{display:block}
+a{color:inherit}
+h1,h2,h3,h4{font-family:var(--f-tit);font-weight:400;line-height:1.02;margin:0;letter-spacing:-.005em}
+h2{font-size:clamp(2.2rem,4.8vw,3.8rem)}
+h3{font-size:clamp(1.3rem,2vw,1.6rem)}
+p{margin:0 0 1em}
+b,strong{font-weight:600}
+:focus-visible{outline:3px solid var(--paglia);outline-offset:3px}
+.sr{position:absolute;width:1px;height:1px;overflow:hidden;clip-path:inset(50%);white-space:nowrap}
+
+/* reveal: stato iniziale solo dietro .js (anti-flash) */
+.js .reveal{opacity:0;transform:translateY(14px);transition:opacity .7s ease,transform .7s ease}
+.js .reveal.in-view{opacity:1;transform:none}
+html:not(.js) .reveal{opacity:1;transform:none}
+
+/* ── la perla (firma): una sfera bianca col riflesso che scorre ── */
+.perla{position:relative;display:inline-block;width:var(--d,64px);height:var(--d,64px);border-radius:50%;background:radial-gradient(circle at 38% 32%,#FFFFFF 0,#F6F4EE 38%,#E4E0D7 70%,#B9B4A9 100%);box-shadow:0 8px 18px rgba(31,34,37,.18),inset -6px -8px 14px rgba(120,115,105,.18);overflow:hidden;flex:none}
+.perla__luce{position:absolute;left:14%;top:12%;width:34%;height:22%;border-radius:50%;background:rgba(255,255,255,.95);filter:blur(1px);transform:translateX(0)}
+.perla--grande{--d:clamp(200px,26vw,340px);box-shadow:0 30px 60px rgba(0,0,0,.35),inset -14px -20px 34px rgba(120,115,105,.22)}
+
+/* ── intro: una perla sul grigio dell'insegna ── */
+.intro{position:fixed;inset:0;z-index:300;display:grid;place-content:center;justify-items:center;gap:1rem;background:var(--notte);color:var(--perla);transition:opacity .6s,visibility .6s}
+.intro.hide{opacity:0;visibility:hidden}
+.intro .perla{--d:clamp(90px,18vw,140px);animation:siForma .9s cubic-bezier(.2,.9,.3,1.3) both}
+@keyframes siForma{from{transform:scale(0)}to{transform:scale(1)}}
+.intro .perla__luce{animation:luccica 1.6s ease-in-out .6s infinite alternate}
+@keyframes luccica{from{transform:translateX(-10%)}to{transform:translateX(40%)}}
+.intro__nome{margin:0;font-family:var(--f-tit);font-size:clamp(1.3rem,3.6vw,2rem);letter-spacing:.2em;text-transform:uppercase;animation:appari .5s ease .7s both}
+@keyframes appari{from{opacity:0}to{opacity:1}}
+.intro__skip{background:none;border:0;color:rgba(251,250,246,.75);font:inherit;font-weight:600;font-size:.85rem;letter-spacing:.1em;text-transform:uppercase;cursor:pointer}
+
+/* ── testata (fondo pieno, NIENTE backdrop-filter) ── */
+.testata{position:sticky;top:0;z-index:90;display:flex;align-items:center;justify-content:space-between;gap:1rem;height:var(--testata);padding:0 clamp(1rem,4vw,3rem);background:var(--notte);color:var(--perla);border-bottom:3px solid var(--perla);max-width:100%;overflow:hidden}
+.marchio{display:inline-flex;align-items:center;gap:.6rem;text-decoration:none;line-height:1;white-space:nowrap}
+.marchio .perla{--d:26px;box-shadow:0 2px 6px rgba(0,0,0,.35)}
+.marchio__n{font-family:var(--f-tit);font-size:1.35rem;letter-spacing:.06em;text-transform:uppercase}
+.marchio__s{font-size:.78rem;font-weight:500;color:var(--grigio-chiaro);letter-spacing:.02em}
+.nav{display:flex;gap:clamp(.8rem,1.8vw,1.5rem)}
+.nav a{font-weight:500;font-size:.95rem;text-decoration:none;padding:.2em 0;border-bottom:3px solid transparent;white-space:nowrap}
+.nav a:hover{border-bottom-color:var(--perla)}
+.testata__coda{display:flex;align-items:center;gap:.8rem;flex:none;min-width:0}
+.lingue{display:flex;border:1.5px solid rgba(251,250,246,.55);border-radius:999px;overflow:hidden}
+.lingue button{background:none;border:0;color:var(--perla);font-family:var(--f-txt);font-weight:700;font-size:.8rem;letter-spacing:.06em;padding:.35em .7em;cursor:pointer;opacity:.65}
+.lingue button.is-on{background:var(--perla);color:var(--notte);opacity:1}
+.burger{display:none;position:relative;z-index:96;width:44px;height:44px;margin-right:-8px;padding:0;background:none;border:0;cursor:pointer}
+.burger span{display:block;width:26px;height:3px;margin:5px auto;background:var(--perla);border-radius:3px;transition:transform .25s,opacity .25s}
+.burger[aria-expanded="true"] span:nth-child(1){transform:translateY(8px) rotate(45deg)}
+.burger[aria-expanded="true"] span:nth-child(2){opacity:0}
+.burger[aria-expanded="true"] span:nth-child(3){transform:translateY(-8px) rotate(-45deg)}
+.drawer{position:fixed;inset:var(--testata) 0 0 0;z-index:89;display:flex;flex-direction:column;gap:.2rem;padding:2rem var(--lato);background:var(--notte-scura);color:var(--perla);overflow-y:auto}
+.drawer a{font-family:var(--f-tit);font-size:clamp(1.8rem,8vw,3rem);text-decoration:none;line-height:1.15;border-bottom:1px solid rgba(251,250,246,.18);padding:.25em 0}
+.drawer a.drawer__cta{margin-top:1.4rem;border:0;color:var(--paglia);font-family:var(--f-txt);font-weight:600;font-size:clamp(1.2rem,5vw,1.6rem)}
+
+/* ── bottoni ── */
+.bottone{display:inline-flex;align-items:center;justify-content:center;gap:.5em;padding:.9em 1.5em;font-family:var(--f-txt);font-weight:600;font-size:1rem;text-decoration:none;border:2px solid transparent;border-radius:999px;line-height:1;transition:transform .2s,background-color .2s,color .2s,border-color .2s}
+.bottone:hover{transform:translateY(-2px)}
+.bottone--perla{background:var(--perla);color:var(--notte)}
+.bottone--perla:hover{background:#fff}
+.bottone--notte{background:var(--notte);color:var(--perla)}
+.bottone--notte:hover{background:var(--notte-scura)}
+.bottone--filo{border-color:var(--grafite);color:var(--grafite)}
+.bottone--filo:hover{background:var(--grafite);color:var(--perla)}
+.bottone--filo-chiaro{border-color:rgba(251,250,246,.7);color:var(--perla)}
+.bottone--filo-chiaro:hover{background:var(--perla);color:var(--notte)}
+
+/* ── apertura: sul grigio dell'insegna, la perla grande e Antonio che fila ── */
+.apertura{padding:clamp(2.5rem,5vw,4.5rem) var(--lato) clamp(3rem,6vw,5rem);background:var(--notte);color:var(--perla);display:grid;grid-template-columns:minmax(0,1.05fr) minmax(0,.95fr);gap:clamp(2rem,5vw,5rem);align-items:center;min-height:calc(100vh - var(--testata))}
+.apertura__kicker{display:flex;align-items:center;gap:.6rem;margin:0 0 1rem;font-weight:600;font-size:.82rem;letter-spacing:.14em;text-transform:uppercase;color:var(--grigio-chiaro)}
+.apertura__kicker::before{content:'';flex:none;width:.7rem;height:.7rem;border-radius:50%;background:var(--perla)}
+.apertura__h{font-size:clamp(3.2rem,8vw,7rem);line-height:.96;margin:0 0 1.1rem;color:var(--perla)}
+.apertura__sub{max-width:36rem;font-size:clamp(1.05rem,1.3vw,1.2rem);margin:0 0 1.4rem;color:rgba(251,250,246,.86)}
+.apertura__sub em{font-style:normal;color:var(--perla);font-weight:600}
+.nastro{display:inline-block;margin:0 0 1.4rem;padding:.55rem 1rem;background:var(--perla);color:var(--notte);font-family:var(--f-tit);font-style:italic;font-size:1.1rem;border-radius:4px}
+.apertura__azioni{display:flex;flex-wrap:wrap;gap:.8rem;margin:0 0 1.1rem}
+.apertura__stato{display:inline-flex;align-items:center;gap:.5rem;margin:0;font-weight:500;font-size:.98rem;color:rgba(251,250,246,.9)}
+.apertura__stato::before{content:'';width:11px;height:11px;border-radius:50%;background:var(--paglia);box-shadow:0 0 0 4px rgba(201,162,74,.25)}
+.apertura__scena{display:grid;justify-items:center;gap:1.2rem}
+.apertura__foto{margin:0;width:min(100%,380px)}
+.apertura__foto img{width:100%;height:auto;border-radius:14px;box-shadow:0 20px 50px rgba(0,0,0,.4)}
+.apertura__foto figcaption{margin-top:.6rem;font-family:var(--f-tit);font-style:italic;font-size:1.15rem;color:rgba(251,250,246,.9);text-align:center}
+
+/* ── le sezioni ── */
+.sezione{padding:clamp(3.5rem,8vw,7rem) var(--lato)}
+.sezione--perla{background:var(--perla)}
+.sezione--latte{background:var(--latte)}
+.sezione--notte{background:var(--notte);color:var(--perla)}
+.sezione__k{display:flex;align-items:center;gap:.6rem;margin:0 0 .9rem;font-weight:600;font-size:.82rem;letter-spacing:.14em;text-transform:uppercase;color:var(--grigio)}
+.sezione--notte .sezione__k{color:var(--grigio-chiaro)}
+.sezione__k::before{content:'';flex:none;width:.6rem;height:.6rem;border-radius:50%;background:currentColor}
+.sezione__testa{max-width:44rem;margin-bottom:clamp(1.5rem,3vw,2.5rem)}
+.sezione__testa h2{margin-bottom:1rem}
+.sezione__p{font-size:1.1rem;color:var(--grigio)}
+.sezione__p em{font-style:normal;color:var(--grafite);font-weight:600}
+.sezione--notte .sezione__p{color:rgba(251,250,246,.85)}
+.sezione--notte .sezione__p em{color:var(--perla)}
+.griglia{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:clamp(2rem,5vw,5rem);align-items:start}
+
+/* il filo di perle */
+.filo{position:relative;margin:0;padding:0 0 0 clamp(2.6rem,5vw,4rem);list-style:none;display:grid;gap:clamp(1.2rem,2.4vw,1.8rem)}
+.filo::before{content:'';position:absolute;left:calc(clamp(2.6rem,5vw,4rem) / 2 - 1px);top:0;bottom:0;width:2px;background:var(--grigio-chiaro);transform-origin:top;transform:scaleY(var(--filo,1))}
+.filo li{position:relative}
+.filo .perla{--d:clamp(44px,5vw,58px);position:absolute;left:calc(-1 * clamp(2.6rem,5vw,4rem) / 2 - clamp(44px,5vw,58px) / 2 + 1px);top:.1rem}
+.filo b{display:block;font-family:var(--f-tit);font-size:clamp(1.35rem,2.2vw,1.7rem);line-height:1.1;margin-bottom:.15rem}
+.filo span{display:block;font-size:.98rem;color:var(--grigio)}
+
+/* le tessere fotografiche */
+.tessere{display:grid;grid-template-columns:repeat(2,1fr);gap:.9rem;margin:0;padding:0;list-style:none}
+.tessere li{margin:0}
+.tessere figure{margin:0}
+.shot{display:block;width:100%;padding:0;border:0;background:none;cursor:zoom-in;font:inherit;color:inherit;border-radius:14px;overflow:hidden;box-shadow:0 10px 26px rgba(31,34,37,.14)}
+.shot img{width:100%;aspect-ratio:4/5;object-fit:cover;transition:transform .5s}
+.shot--largo img{aspect-ratio:16/10}
+.shot--quadro img{aspect-ratio:1}
+.shot:hover img{transform:scale(1.03)}
+.tessere figcaption{margin-top:.5rem;font-size:.9rem;color:var(--grigio)}
+.sezione--notte .tessere figcaption{color:rgba(251,250,246,.8)}
+.tessere .tutto{grid-column:1/-1}
+
+/* alle due di notte: i tre passi e le due regole */
+.passi{margin:0 0 1.6rem;padding:0;list-style:none;display:grid;gap:.8rem}
+.passi li{display:grid;grid-template-columns:5.2rem 1fr;gap:1rem;align-items:start;padding:1.1rem 1.2rem;background:rgba(255,255,255,.07);border-radius:16px;border:1px solid rgba(251,250,246,.14)}
+.passi time{font-family:var(--f-tit);font-size:1.7rem;line-height:1;color:var(--perla)}
+.passi b{display:block;font-family:var(--f-tit);font-weight:400;font-size:1.3rem;margin-bottom:.2rem}
+.passi p{margin:0;color:rgba(251,250,246,.82)}
+.regole{margin:0;padding:0;list-style:none;display:grid;grid-template-columns:1fr 1fr;gap:.8rem}
+.regole li{padding:1rem 1.1rem;background:var(--perla);color:var(--grafite);border-radius:16px}
+.regole b{display:block;font-family:var(--f-tit);font-weight:400;font-size:1.25rem;margin-bottom:.25rem}
+.regole span{font-size:.95rem;color:var(--grigio)}
+
+/* il resto del banco */
+.elenco{margin:1.2rem 0 1.6rem;padding:0;list-style:none;display:grid;gap:.5rem}
+.elenco li{display:grid;grid-template-columns:auto 1fr;gap:.8rem;align-items:baseline;padding:.7rem 1rem;background:var(--bianco);border-radius:12px}
+.elenco b{font-family:var(--f-tit);font-weight:400;font-size:1.2rem;white-space:nowrap}
+.elenco span{font-size:.95rem;color:var(--grigio)}
+.panino{margin:0 0 1.6rem;padding:1.2rem 1.4rem;background:var(--notte);color:var(--perla);border-radius:16px}
+.panino b{display:block;font-family:var(--f-tit);font-weight:400;font-size:1.4rem;margin-bottom:.3rem}
+.panino p{margin:0;color:rgba(251,250,246,.86)}
+
+/* chi c'è */
+.chi{display:grid;grid-template-columns:1fr 1fr;gap:.9rem;margin:1.2rem 0 1.6rem;padding:0;list-style:none}
+.chi li{padding:1.2rem 1.3rem;background:var(--bianco);border-radius:16px;border-top:4px solid var(--notte)}
+.chi b{display:block;font-family:var(--f-tit);font-weight:400;font-size:1.5rem;margin-bottom:.3rem}
+.chi p{margin:0;font-size:.98rem;color:var(--grigio)}
+
+/* le voci */
+.badge{display:inline-grid;grid-template-columns:auto auto;align-items:center;gap:.15rem .9rem;padding:.8rem 1.2rem;background:var(--notte);color:var(--perla);border-radius:16px}
+.badge__n{grid-row:span 2;font-family:var(--f-tit);font-size:2.9rem;line-height:1}
+.badge__stelle{color:var(--paglia);letter-spacing:.1em}
+.badge__s{font-size:.85rem}
+.voci__cit{margin:0 0 1.2rem;padding:1.3rem 1.5rem;background:var(--bianco);border-left:6px solid var(--notte);border-radius:0 16px 16px 0;display:grid;gap:.5rem}
+.voci__cit p{font-family:var(--f-tit);font-size:clamp(1.5rem,2.6vw,2.2rem);line-height:1.15;margin:0}
+.voci__cit cite{font-style:normal;font-size:.88rem;color:var(--grigio)}
+
+/* ── dove ── */
+.dove__note{margin:1rem 0 1.4rem;padding:0;list-style:none;display:grid;gap:.45rem}
+.dove__note li{display:grid;grid-template-columns:1rem 1fr;gap:.7rem;align-items:start}
+.dove__note li::before{content:'';width:.7rem;height:.7rem;margin-top:.45rem;border-radius:50%;background:var(--notte)}
+.dove__azioni{display:flex;flex-wrap:wrap;gap:.7rem;margin:0 0 1.6rem}
+.orari{width:100%;border-collapse:collapse;background:var(--bianco);border-radius:16px;overflow:hidden;box-shadow:0 4px 14px rgba(31,34,37,.06)}
+.orari caption{text-align:left;font-family:var(--f-tit);font-size:1.2rem;padding:0 0 .5rem}
+.orari td{padding:.55rem .9rem;border-bottom:1px solid var(--latte);font-size:1rem}
+.orari td:last-child{text-align:right;font-variant-numeric:tabular-nums}
+.orari tr:last-child td{border-bottom:0}
+.orari tr.is-today td{background:#F5EEDB;font-weight:600}
+.mappa{margin:0;border-radius:18px;overflow:hidden;box-shadow:0 10px 30px rgba(31,34,37,.14)}
+.mappa iframe{display:block;width:100%;height:340px;border:0}
+.dove__foto{margin:1rem 0 0}
+.dove__foto img{width:100%;aspect-ratio:16/11;object-fit:cover;border-radius:18px}
+.dove__foto figcaption{margin-top:.5rem;font-size:.9rem;color:var(--grigio)}
+
+/* ── domande ── */
+.domande h2{margin-bottom:1.4rem}
+.domande details{background:var(--bianco);border-radius:14px;margin-bottom:.6rem;max-width:52rem}
+.domande summary{cursor:pointer;padding:1rem 1.2rem;font-family:var(--f-tit);font-size:1.25rem;list-style:none;display:flex;justify-content:space-between;gap:1rem}
+.domande summary::-webkit-details-marker{display:none}
+.domande summary::after{content:'+';font-family:var(--f-txt);font-weight:700;color:var(--notte);flex:none}
+.domande details[open] summary::after{content:'−'}
+.domande details p{margin:0;padding:0 1.2rem 1.1rem;color:var(--grigio)}
+
+/* ── piede ── */
+.piede{padding:clamp(2.5rem,5vw,4rem) var(--lato);background:var(--notte-scura);color:var(--perla);display:grid;grid-template-columns:1.2fr 1fr;gap:1.5rem 3rem;align-items:start}
+.piede__m{margin:0;font-family:var(--f-tit);font-size:1.5rem;letter-spacing:.08em;text-transform:uppercase}
+.piede__s{margin:.3rem 0 .8rem;font-size:.95rem;color:rgba(251,250,246,.75)}
+.piede__d{margin:0;font-size:.95rem}
+.piede a{color:var(--perla)}
+.piede__soc{margin:0;display:flex;flex-wrap:wrap;gap:1rem;font-weight:600}
+.piede__b{grid-column:1/-1;margin:.5rem 0 0;padding-top:1rem;border-top:1px solid rgba(251,250,246,.18);font-size:.85rem;color:rgba(251,250,246,.65)}
+
+/* ── barra mobile ── */
+.barra{display:none}
+
+/* ── lightbox ── */
+.lightbox{position:fixed;inset:0;z-index:200;display:flex;align-items:center;justify-content:center;padding:2rem;background:rgba(31,34,37,.95)}
+.lightbox img{max-width:100%;max-height:90vh;width:auto;height:auto;border-radius:8px}
+.lightbox__chiudi{position:absolute;top:1rem;right:1rem;width:48px;height:48px;border:0;border-radius:50%;background:var(--perla);color:var(--notte);font-size:1.6rem;cursor:pointer}
+
+/* ── responsive ── */
+@media (max-width:960px){
+  .nav{display:none}
+  .burger{display:block}
+  .testata .bottone{display:none}
+  .apertura{grid-template-columns:1fr;gap:1.8rem;min-height:auto;padding-top:2rem}
+  .apertura__scena{grid-template-columns:auto 1fr;align-items:center;gap:1.2rem}
+  .perla--grande{--d:clamp(120px,30vw,180px)}
+  .griglia,.regole,.chi{grid-template-columns:1fr}
+  .piede{grid-template-columns:1fr}
+}
+@media (max-width:640px){
+  body{font-size:1.02rem}
+  .testata{gap:.5rem}
+  .marchio{gap:.4rem}
+  .marchio .perla{--d:20px}
+  .marchio__n{font-size:1rem;letter-spacing:.04em}
+  .marchio__s{display:none}
+  .lingue button{padding:.35em .5em}
+  .apertura__h{font-size:clamp(2.8rem,12vw,4rem)}
+  .apertura__sub{font-size:1rem}
+  .apertura__scena{grid-template-columns:1fr;justify-items:center}
+  .apertura__foto{width:min(100%,320px)}
+  .filo{padding-left:3rem}
+  .filo::before{left:calc(1.5rem - 1px)}
+  .filo .perla{--d:40px;left:calc(-1.5rem - 20px + 1px)}
+  .tessere{gap:.6rem}
+  .badge__n{font-size:2.3rem}
+  .mappa iframe{height:260px}
+  .barra{display:grid;grid-template-columns:repeat(4,1fr);position:fixed;left:0;right:0;bottom:0;z-index:80;background:var(--notte-scura);border-top:3px solid var(--perla);transform:translateY(110%);transition:transform .3s}
+  .barra.is-visible{transform:none}
+  .barra a{padding:.8rem .2rem .7rem;text-align:center;font-weight:600;font-size:.9rem;text-decoration:none;color:var(--perla);border-right:1px solid rgba(255,255,255,.12)}
+  .barra a:first-child{background:var(--perla);color:var(--notte)}
+  .piede{padding-bottom:5.5rem}
+}
+
+/* ── reduced motion ── */
+@media (prefers-reduced-motion:reduce){
+  html{scroll-behavior:auto}
+  .intro{display:none}
+  .intro .perla,.intro .perla__luce,.intro__nome{animation:none}
+  .js .reveal{opacity:1;transform:none;transition:none}
+  .bottone,.shot img{transition:none}
+}
